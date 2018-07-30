@@ -10,4 +10,4 @@ $ hrun demo-quickstart.yml --html-report-template /path/to/custom_report_templat
 
 ## Available report templates
 
-- allure-theme-template
+- extent-theme-template
