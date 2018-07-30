@@ -38,7 +38,7 @@
 
 <nav>
     <div class="nav-wrapper">
-        <a href="#!" class="brand-logo blue darken-3">API</a>
+        <a href="#!" class="brand-logo blue darken-3">Extent</a>
 
         <!-- slideout menu -->
         <ul id='slide-out' class='side-nav fixed hide-on-med-and-down'>
@@ -520,7 +520,7 @@
                                         </tr>
                                         {% for record in test_suite_summary.records %}
                                             <tr>
-                                                <td>{{ record.meta_data.request.start_timestamp|default("Script Error") }}</td>
+                                                <td>{{ record.meta_data.request.start_timestamp }}</td>
                                                 <td class='linked'
                                                     test-id='{{ test_suite_summary.name }}_{{ record.name }}_{{ loop.index }}'>{{ record.name }}</td>
                                                 {% if record.status == 'success' %}
@@ -579,7 +579,7 @@
                                         <tbody>
                                         {% for record in test_suite_summary.records %}
                                             <tr>
-                                                <td>{{ record.meta_data.request.start_timestamp|default("Script Error") }}</td>
+                                                <td>{{ record.meta_data.request.start_timestamp }}</td>
                                                 <td class='linked'
                                                     test-id='{{ test_suite_summary.name }}_{{ record.name }}_{{ loop.index }}'>{{ record.name }}</td>
                                                 {% if record.status == 'success' %}
