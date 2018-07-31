@@ -313,54 +313,51 @@
                                                 <td class='step-details'>{{ record.meta_data.response.status_code }}</td>
                                             </tr>
                                             {% for key, value in record.meta_data.request.items() %}
-                                                {% if key in ["url", "method", "start_timestamp"] %}
-                                                    {% continue %}
+                                                {% if key != 'url' and key != 'method' and key != 'start_timestamp' %}
+                                                    <tr class='log' status='debug'>
+                                                        <td class='status debug' title='debug' alt='debug'><i
+                                                                class='material-icons'>low_priority</i></td>
+                                                        <td class='timestamp'>{{ key }}</td>
+                                                        <td class='step-details'>
+                                                            {% if key == "headers" %}
+                                                                {% for header_key, header_value in record.meta_data.request.headers.items() %}
+                                                                    <div>
+                                                                        <strong>{{ header_key }}</strong>: {{ header_value }}
+                                                                    </div>
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                {{ value }}
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
                                                 {% endif %}
-                                                <tr class='log' status='debug'>
-                                                    <td class='status debug' title='debug' alt='debug'><i
-                                                            class='material-icons'>low_priority</i></td>
-                                                    <td class='timestamp'>{{ key }}</td>
-                                                    <td class='step-details'>
-                                                        {% if key == "headers" %}
-                                                            {% for header_key, header_value in record.meta_data.request.headers.items() %}
-                                                                <div>
-                                                                    <strong>{{ header_key }}</strong>: {{ header_value }}
-                                                                </div>
-                                                            {% endfor %}
-                                                        {% else %}
-                                                            {{ value }}
-                                                        {% endif %}
-                                                    </td>
-
-                                                </tr>
                                             {% endfor %}
 
                                             {% for key, value in record.meta_data.response.items() %}
-                                                {% if key in ["content", "json", "elapsed_ms", "response_time_ms", "content_size", "content_type", "status_code","reason","ok", "encoding", "url"] %}
-                                                    {% continue %}
-                                                {% endif %}
-                                                <tr class='log' status='debug'>
-                                                    <td class='status debug' title='debug' alt='debug'><i
-                                                            class='material-icons'>low_priority</i></td>
-                                                    <td class='timestamp'>{{ key }}</td>
-                                                    <td class='step-details'>
-                                                        {% if key == "headers" %}
-                                                            {% for header_key, header_value in record.meta_data.request.headers.items() %}
-                                                                <div>
-                                                                    <strong>{{ header_key }}</strong>: {{ header_value }}
-                                                                </div>
-                                                            {% endfor %}
-                                                        {% elif key == "text" %}
-                                                            {% if value == "image" %}
-                                                                <img src="{{ record.meta_data.response.content }}"/>
+                                                {% if key != "content" and key != "json" and key != "elapsed_ms" and key != "response_time_ms" and key != "content_size" and key != "content_type" and key != "status_code" and key != "reason" and key != "ok" and key != "encoding" and key != "url" %}
+                                                    <tr class='log' status='debug'>
+                                                        <td class='status debug' title='debug' alt='debug'><i
+                                                                class='material-icons'>low_priority</i></td>
+                                                        <td class='timestamp'>{{ key }}</td>
+                                                        <td class='step-details'>
+                                                            {% if key == "headers" %}
+                                                                {% for header_key, header_value in record.meta_data.request.headers.items() %}
+                                                                    <div>
+                                                                        <strong>{{ header_key }}</strong>: {{ header_value }}
+                                                                    </div>
+                                                                {% endfor %}
+                                                            {% elif key == "text" %}
+                                                                {% if value == "image" %}
+                                                                    <img src="{{ record.meta_data.response.content }}"/>
+                                                                {% else %}
+                                                                    <pre>{{ record.meta_data.response.text }}</pre>
+                                                                {% endif %}
                                                             {% else %}
-                                                                <pre>{{ record.meta_data.response.text }}</pre>
+                                                                {{ value }}
                                                             {% endif %}
-                                                        {% else %}
-                                                            {{ value }}
-                                                        {% endif %}
-                                                    </td>
-                                                </tr>
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
                                             {% endfor %}
 
                                             <tr class='log' status='pass'>
