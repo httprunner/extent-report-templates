@@ -341,7 +341,7 @@
                                                         <td class='timestamp'>{{ key }}</td>
                                                         <td class='step-details'>
                                                             {% if key == "headers" %}
-                                                                {% for header_key, header_value in record.meta_data.request.headers.items() %}
+                                                                {% for header_key, header_value in record.meta_data.response.headers.items() %}
                                                                     <div>
                                                                         <strong>{{ header_key }}</strong>: {{ header_value }}
                                                                     </div>
